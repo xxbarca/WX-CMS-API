@@ -22,4 +22,9 @@ public class UploaderConfiguration {
     public Uploader uploader(){
         return new LocalUploader();
     }
+
+    @Bean
+    public Uploader qiniuUploader() {
+        return new QiniuUploader();
+    }
 }

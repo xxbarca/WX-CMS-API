@@ -38,7 +38,13 @@ public class BannerService extends ServiceImpl<BannerMapper, BannerDO> {
         List<BannerItemDO> bannerItemList = bannerItemMapper.selectList(wrapper);
 
         return new BannerWithItemsBO(banner, bannerItemList);
+    }
 
+    /**
+     * 添加
+     * */
+    public void create(BannerDO bannerDO) {
+        this.save(bannerDO);
     }
 
     /**

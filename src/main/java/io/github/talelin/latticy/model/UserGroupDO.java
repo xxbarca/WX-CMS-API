@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author Juzi@TaleLin
  */
 @Data
-@TableName("user_group")
+@TableName("li_user_group")
 public class UserGroupDO implements Serializable {
 
     private static final long serialVersionUID = -7219009955825484511L;

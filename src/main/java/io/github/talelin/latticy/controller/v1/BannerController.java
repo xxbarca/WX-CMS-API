@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.talelin.core.annotation.*;
 import io.github.talelin.latticy.bo.BannerWithItemsBO;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.dto.BannerDTO;
@@ -22,6 +23,7 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/v1/banner")
 @RestController
 @Validated
+@PermissionModule(value = "Banner")
 public class BannerController {
 
     @Autowired
@@ -31,6 +33,8 @@ public class BannerController {
      * 添加Banner
      * */
     @PostMapping
+    @PermissionMeta(value = "创建Banner")
+    @GroupRequired
     public CreatedVO create(@RequestBody @Validated BannerDTO bannerDTO) {
         BannerDO bannerDO = new BannerDO();
         BeanUtils.copyProperties(bannerDTO, bannerDO);
@@ -43,6 +47,7 @@ public class BannerController {
      * @param id: banner的id
      * */
     @GetMapping("/{id}")
+    @LoginRequired
     public BannerWithItemsBO getWithItems(@PathVariable @Positive Long id) {
         return bannerService.getWithItems(id);
     }
@@ -53,6 +58,7 @@ public class BannerController {
      * @param count:
      * */
     @GetMapping("/page")
+    @LoginRequired
     public PageResponseVO<BannerDO> getBanners(@RequestParam(required = false, defaultValue = "0") @Min(value = 0) Integer page,
                                                @RequestParam(required = false, defaultValue = "10") @Min(value = 1) @Max(value = 30) Integer count) {
         Page<BannerDO> pager = new Page<>(page, count);
@@ -66,6 +72,8 @@ public class BannerController {
      * @param id:
      * */
     @PutMapping("/{id}")
+    @PermissionMeta(value = "更新Banner")
+    @GroupRequired
     public UpdatedVO update(@RequestBody @Validated BannerDTO bannerDTO,
                             @PathVariable @Positive Long id) {
         bannerService.update(bannerDTO, id);

@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author Juzi@TaleLin
  */
 @Data
-@TableName("lin_group_permission")
+@TableName("li__permission")
 public class GroupPermissionDO implements Serializable {
 
     private static final long serialVersionUID = -358487811336536495L;

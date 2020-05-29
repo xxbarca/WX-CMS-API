@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("lin_group")
+@TableName("li_group")
 @EqualsAndHashCode(callSuper = true)
 public class GroupDO extends BaseModel implements Serializable {
 

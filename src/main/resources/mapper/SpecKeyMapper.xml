@@ -17,7 +17,7 @@
     <select id="getBySpuId" parameterType="long" resultType="io.github.talelin.latticy.model.SpecKeyDO">
         select sk2.* from spu_key sk
         join spec_key sk2 on sk.spec_key_id = sk2.id
-        where sk.spu_id = #{spuId}
+        where sk.spu_id = #{spuId} and sk2.delete_time is null;
     </select>
 
 </mapper>

@@ -3,6 +3,7 @@ package io.github.talelin.latticy.controller.v1;
 
 import io.github.talelin.latticy.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +31,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/v1/sku")
+@Validated
 public class SkuController {
 
     @Autowired

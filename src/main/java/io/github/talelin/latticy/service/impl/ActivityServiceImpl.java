@@ -36,4 +36,14 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, ActivityDO>
         BeanUtils.copyProperties(dto, activityDO);
         this.getBaseMapper().updateById(activityDO);
     }
+
+    @Override
+    public void delete(Integer id) {
+        ActivityDO activityDO = this.getBaseMapper().selectById(id);
+        if (activityDO == null) {
+            throw new NotFoundException(90000);
+        }
+        this.getBaseMapper().deleteById(id);
+
+    }
 }

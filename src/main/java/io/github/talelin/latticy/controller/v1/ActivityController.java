@@ -51,7 +51,10 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{id}")
-    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Long id) {
+    @PermissionMeta(value = "删除活动")
+    @GroupRequired
+    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
+        this.activityService.delete(id);
         return new DeletedVO();
     }
 

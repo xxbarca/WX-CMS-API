@@ -16,4 +16,6 @@ public interface ActivityService extends IService<ActivityDO> {
     void create(ActivityDTO dto);
 
     void update(ActivityDTO dto, Integer id);
+
+    void delete(Integer id);
 }

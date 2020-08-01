@@ -53,7 +53,10 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Long id) {
+    @PermissionMeta(value = "删除分类")
+    @GroupRequired
+    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
+        this.categoryService.deleteCategory(id);
         return new DeletedVO();
     }
 

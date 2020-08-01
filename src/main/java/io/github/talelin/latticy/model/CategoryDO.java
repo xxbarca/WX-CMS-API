@@ -25,7 +25,7 @@ public class CategoryDO extends BaseModel {
     @TableField("`index`")
     private Long index;
 
-    private Boolean isRoot;
+    private Integer isRoot;
 
     private String name;
 

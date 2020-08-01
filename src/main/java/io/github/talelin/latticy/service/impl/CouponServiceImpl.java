@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
@@ -11,6 +12,8 @@ import io.github.talelin.latticy.model.CouponDO;
 import io.github.talelin.latticy.service.CouponService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CouponServiceImpl extends ServiceImpl<CouponMapper, CouponDO> implements CouponService {
@@ -32,6 +35,13 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, CouponDO> imple
             throw new NotFoundException(100000);
         }
         this.getBaseMapper().deleteById(id);
+    }
+
+    @Override
+    public List<CouponDO> getListByActivityId(Integer id) {
+        QueryWrapper<CouponDO> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(CouponDO::getActivityId, id);
+        return this.getBaseMapper().selectList(wrapper);
     }
 
     /**

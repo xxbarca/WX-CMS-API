@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/coupon")
@@ -49,5 +51,13 @@ public class CouponController {
             throw new NotFoundException(100000);
         }
         return couponDO;
+    }
+
+    @GetMapping("/list")
+    @LoginRequired
+    public List<CouponDO> getListByActivityId(
+            @RequestParam(name = "id") @Min(value = 1, message = "{id}") Integer id) {
+        List<CouponDO> coupons = couponService.getListByActivityId(id);
+        return coupons;
     }
 }

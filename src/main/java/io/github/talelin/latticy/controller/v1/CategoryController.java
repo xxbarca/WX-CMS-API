@@ -44,7 +44,11 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public UpdatedVO update(@PathVariable @Positive(message = "{id.positive}") Long id) {
+    @PermissionMeta(value = "更新分类")
+    public UpdatedVO update(
+            @Validated @RequestBody CategoryDTO categoryDTO,
+            @PathVariable @Positive(message = "{id.positive}") Integer id) {
+        this.categoryService.updateCategory(categoryDTO, id);
         return new UpdatedVO();
     }
 

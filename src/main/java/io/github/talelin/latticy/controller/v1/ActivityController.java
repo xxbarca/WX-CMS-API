@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.dto.ActivityDTO;
@@ -33,13 +34,19 @@ public class ActivityController {
 
     @PostMapping("")
     @PermissionMeta(value = "创建活动")
+    @GroupRequired
     public CreatedVO create(@RequestBody @Validated ActivityDTO activityDTO) {
         this.activityService.create(activityDTO);
         return new CreatedVO();
     }
 
     @PutMapping("/{id}")
-    public UpdatedVO update(@PathVariable @Positive(message = "{id.positive}") Long id) {
+    @PermissionMeta(value = "更新活动")
+    @GroupRequired
+    public UpdatedVO update(
+            @RequestBody @Validated ActivityDTO dto,
+            @PathVariable @Positive(message = "{id.positive}") Integer id) {
+        this.activityService.update(dto, id);
         return new UpdatedVO();
     }
 

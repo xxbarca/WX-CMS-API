@@ -14,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ActivityService extends IService<ActivityDO> {
     void create(ActivityDTO dto);
+
+    void update(ActivityDTO dto, Integer id);
 }

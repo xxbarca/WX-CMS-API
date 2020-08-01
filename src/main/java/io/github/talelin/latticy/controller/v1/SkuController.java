@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.github.talelin.latticy.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -39,7 +40,8 @@ public class SkuController {
 
     @GetMapping("/by/spu/{id}")
     public List<SkuDO> getBySpuId(@PathVariable(value = "id") @Positive Long spuId) {
-        return this.skuService.lambdaQuery().eq(SkuDO::getSpuId, spuId).list();
+        return this.skuService.getBaseMapper().selectList(Wrappers.<SkuDO>lambdaQuery().eq(SkuDO::getSpuId, spuId));
+//        return this.skuService.lambdaQuery().eq(SkuDO::getSpuId, spuId).list();
     }
 
 }

@@ -1,9 +1,11 @@
 package io.github.talelin.latticy.service.impl;
 
+import io.github.talelin.latticy.dto.ActivityDTO;
 import io.github.talelin.latticy.model.ActivityDO;
 import io.github.talelin.latticy.mapper.ActivityMapper;
 import io.github.talelin.latticy.service.ActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +19,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, ActivityDO> implements ActivityService {
 
+    @Override
+    public void create(ActivityDTO dto) {
+        ActivityDO activityDO = new ActivityDO();
+        BeanUtils.copyProperties(dto, activityDO);
+        this.getBaseMapper().insert(activityDO);
+    }
 }

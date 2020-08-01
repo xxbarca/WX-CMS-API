@@ -51,6 +51,7 @@ public class SpuService extends ServiceImpl<SpuMapper, SpuDO> {
 
         List<String> spuImgList = new ArrayList<>();
 
+        // 如果为空则把主图当作SpuImgList
         if (dto.getSpuImgList() == null) {
             spuImgList.add(dto.getImg());
         } else {

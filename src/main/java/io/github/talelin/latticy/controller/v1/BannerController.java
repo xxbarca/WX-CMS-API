@@ -5,6 +5,7 @@ import io.github.talelin.core.annotation.*;
 import io.github.talelin.latticy.bo.BannerWithItemsBO;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.dto.BannerDTO;
+import io.github.talelin.latticy.mapper.BannerItemMapper;
 import io.github.talelin.latticy.model.BannerDO;
 import io.github.talelin.latticy.service.BannerService;
 import io.github.talelin.latticy.vo.CreatedVO;
@@ -29,6 +30,9 @@ public class BannerController {
     @Autowired
     private BannerService bannerService;
 
+    @Autowired
+    private BannerItemMapper bannerItemMapper;
+
     /**
      * 添加Banner
      * */
@@ -48,6 +52,8 @@ public class BannerController {
      * */
     @GetMapping("/{id}")
     @LoginRequired
+    @PermissionMeta(value = "查询Banner")
+    @Logger(template = "{user.username}查询了Banner数据")
     public BannerWithItemsBO getWithItems(@PathVariable @Positive Long id) {
         return bannerService.getWithItems(id);
     }
@@ -84,6 +90,7 @@ public class BannerController {
      * 删除
      * @param id:
      * */
+    // TODO
     @DeleteMapping("/{id}")
     public DeletedVO delete(@PathVariable @Positive Long id) {
         bannerService.delete(id);

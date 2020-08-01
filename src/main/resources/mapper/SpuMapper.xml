@@ -42,7 +42,7 @@
 
     <select id="getDetail" resultMap="DetailResultMap">
         SELECT s.*,
-               sku.title AS default_sku_title,
+                sku.title AS default_sku_title,
                c.name    AS category_name,
                sk.name   AS sketch_spec_key_name,
                si.img    AS spu_img,
@@ -55,7 +55,7 @@
                  JOIN spu_img si ON si.spu_id = s.id
                  JOIN spu_detail_img sdi ON sdi.spu_id = s.id
         WHERE s.id = #{id}
-          AND s.delete_time IS NULL
+            AND s.delete_time IS NULL
     </select>
 
 </mapper>

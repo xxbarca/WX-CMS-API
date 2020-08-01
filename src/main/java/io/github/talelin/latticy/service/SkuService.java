@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.service;
 
+import io.github.talelin.latticy.mapper.SkuMapper;
 import io.github.talelin.latticy.model.SkuDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 

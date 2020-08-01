@@ -52,12 +52,14 @@ public class BannerService extends ServiceImpl<BannerMapper, BannerDO> {
      * */
     public void update(BannerDTO bannerDTO, Long id) {
         BannerDO banner = this.getById(id);
+//        this.getBaseMapper().selectById()
         if (banner == null) {
             throw new NotFoundException(20000);
         }
 
         BeanUtils.copyProperties(bannerDTO, banner);
-        this.updateById(banner);
+        this.getBaseMapper().updateById(banner);
+//        this.updateById(banner);
     }
 
     /**

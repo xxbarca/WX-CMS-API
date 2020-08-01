@@ -1,9 +1,12 @@
 package io.github.talelin.latticy.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.latticy.common.enumeration.CategoryRootOrNotEnum;
+import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.dto.CategoryDTO;
 import io.github.talelin.latticy.model.CategoryDO;
 import io.github.talelin.latticy.mapper.CategoryMapper;
@@ -55,6 +58,14 @@ public class CategoryService extends ServiceImpl<CategoryMapper, CategoryDO> {
             throw new NotFoundException(40000);
         }
         return categoryDO;
+    }
+
+    public IPage<CategoryDO> getSubCategoriesByPage(Integer count, Integer page, Integer id) {
+        Page<CategoryDO> pager = new Page<>(page, count);
+        QueryWrapper<CategoryDO> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(CategoryDO::getIsRoot, CategoryRootOrNotEnum.NOT_ROOT.getValue());
+        wrapper.lambda().eq(CategoryDO::getParentId, id);
+        return this.getBaseMapper().selectPage(pager, wrapper);
     }
 
 }

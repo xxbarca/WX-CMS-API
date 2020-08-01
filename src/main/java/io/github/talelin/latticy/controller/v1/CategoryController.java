@@ -1,7 +1,9 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.*;
+import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.CategoryDTO;
 import io.github.talelin.latticy.service.CategoryService;
 import org.springframework.beans.BeanUtils;
@@ -64,15 +66,32 @@ public class CategoryController {
         return this.categoryService.getCategoryById(id);
     }
 
+
+    // TODO
     @GetMapping("/page")
+    @LoginRequired
     public PageResponseVO<CategoryDO> page(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Long count,
+            @Max(value = 30, message = "{page.count.max}") Integer count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Long page
+            @Min(value = 0, message = "{page.number.min}") Integer page
     ) {
         return null;
+    }
+
+    @GetMapping("/sub-page")
+    @LoginRequired
+    public PageResponseVO<CategoryDO> subPage(
+            @RequestParam(name = "count", required = false, defaultValue = "10")
+            @Min(value = 1, message = "{page.count.min}")
+            @Max(value = 30, message = "{page.count.max}") Integer count,
+            @RequestParam(name = "page", required = false, defaultValue = "0")
+            @Min(value = 0, message = "{page.number.min}") Integer page,
+            @RequestParam(name = "id") @Positive(message = "{id}") Integer id
+    ) {
+        IPage<CategoryDO> paging = categoryService.getSubCategoriesByPage(count, page, id);
+        return PageUtil.build(paging);
     }
 
 }

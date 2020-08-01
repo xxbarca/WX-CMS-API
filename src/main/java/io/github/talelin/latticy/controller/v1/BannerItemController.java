@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.dto.BannerDTO;
 import io.github.talelin.latticy.dto.BannerItemDTO;
@@ -58,19 +59,13 @@ public class BannerItemController {
     }
 
     @GetMapping("/{id}")
-    public BannerItemDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Long id) {
-        return null;
-    }
-
-    @GetMapping("/page")
-    public PageResponseVO<BannerItemDO> page(
-            @RequestParam(name = "count", required = false, defaultValue = "10")
-            @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Long count,
-            @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Long page
-    ) {
-        return null;
+    @PermissionMeta(value = "查询Banner item")
+    public BannerItemDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
+        BannerItemDO bannerItemDO = bannerItemService.getBaseMapper().selectById(id);
+        if (bannerItemDO == null) {
+            throw new NotFoundException(20001);
+        }
+        return bannerItemDO;
     }
 
 }

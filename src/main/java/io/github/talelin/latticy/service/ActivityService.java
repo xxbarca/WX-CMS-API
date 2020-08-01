@@ -3,6 +3,7 @@ package io.github.talelin.latticy.service;
 import io.github.talelin.latticy.dto.ActivityDTO;
 import io.github.talelin.latticy.model.ActivityDO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.github.talelin.latticy.model.ActivityDetailDO;
 
 /**
  * <p>
@@ -18,4 +19,8 @@ public interface ActivityService extends IService<ActivityDO> {
     void update(ActivityDTO dto, Integer id);
 
     void delete(Integer id);
+
+    ActivityDetailDO getDetailById(Integer id);
+
+
 }

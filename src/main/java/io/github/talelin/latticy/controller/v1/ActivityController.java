@@ -5,6 +5,7 @@ import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.dto.ActivityDTO;
+import io.github.talelin.latticy.model.ActivityDetailDO;
 import io.github.talelin.latticy.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -58,9 +59,12 @@ public class ActivityController {
         return new DeletedVO();
     }
 
-    @GetMapping("/{id}")
-    public ActivityDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Long id) {
-        return null;
+    /**
+     * 获取活动详情
+     * */
+    @GetMapping("/{id}/detail")
+    public ActivityDetailDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
+        return activityService.getDetailById(id);
     }
 
     @GetMapping("/page")

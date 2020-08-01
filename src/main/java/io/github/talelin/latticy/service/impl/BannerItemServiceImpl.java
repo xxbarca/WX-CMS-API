@@ -17,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BannerItemServiceImpl extends ServiceImpl<BannerItemMapper, BannerItemDO> implements BannerItemService {
 
+    @Override
+    public void create(BannerItemDO bannerItemDO) {
+        this.getBaseMapper().insert(bannerItemDO);
+    }
 }

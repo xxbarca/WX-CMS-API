@@ -1,7 +1,12 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.dto.BannerDTO;
+import io.github.talelin.latticy.dto.BannerItemDTO;
+import io.github.talelin.latticy.service.BannerItemService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.github.talelin.latticy.model.BannerItemDO;
@@ -24,8 +29,15 @@ public class BannerItemController {
 
     // TODO - 3-1商品管理操作需求分析
 
+    @Autowired
+    private BannerItemService bannerItemService;
+
     @PostMapping
-    public CreatedVO create() {
+    @PermissionMeta(value = "创建Banner Item")
+    public CreatedVO create(@Validated @RequestBody BannerItemDTO bannerItemDTO) {
+        BannerItemDO bannerItemDO = new BannerItemDO();
+        BeanUtils.copyProperties(bannerItemDTO, bannerItemDO);
+        this.bannerItemService.create(bannerItemDO);
         return new CreatedVO();
     }
 

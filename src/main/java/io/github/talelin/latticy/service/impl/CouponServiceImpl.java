@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
 import io.github.talelin.latticy.common.enumeration.CouponTypeEnum;
 import io.github.talelin.latticy.dto.CouponDTO;
@@ -22,6 +23,15 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, CouponDO> imple
         CouponDO couponDO = new CouponDO();
         BeanUtils.copyProperties(dto, couponDO);
         this.getBaseMapper().insert(couponDO);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        CouponDO couponDO = this.getBaseMapper().selectById(id);
+        if (couponDO == null) {
+            throw new NotFoundException(100000);
+        }
+        this.getBaseMapper().deleteById(id);
     }
 
     /**

@@ -7,4 +7,6 @@ import io.github.talelin.latticy.model.CouponDO;
 public interface CouponService extends IService<CouponDO> {
 
     void create(CouponDTO dto);
+
+    void delete(Integer id);
 }

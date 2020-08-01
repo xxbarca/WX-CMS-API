@@ -6,9 +6,12 @@ import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.dto.CouponDTO;
 import io.github.talelin.latticy.service.CouponService;
 import io.github.talelin.latticy.vo.CreatedVO;
+import io.github.talelin.latticy.vo.DeletedVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/v1/coupon")
@@ -25,6 +28,13 @@ public class CouponController {
     public CreatedVO create(@Validated @RequestBody CouponDTO couponDTO) {
         this.couponService.create(couponDTO);
         return new CreatedVO();
+    }
 
+    @DeleteMapping("/{id}")
+    @PermissionMeta("删除优惠券")
+    @GroupRequired
+    public DeletedVO delete(@PathVariable @Positive(message = "{id}") Integer id) {
+        this.couponService.delete(id);
+        return new DeletedVO();
     }
 }

@@ -42,7 +42,11 @@ public class BannerItemController {
     }
 
     @PutMapping("/{id}")
-    public UpdatedVO update(@PathVariable @Positive(message = "{id.positive}") Long id) {
+    @PermissionMeta(value = "更新Banner item")
+    public UpdatedVO update(
+            @Validated @RequestBody BannerItemDTO bannerItemDTO,
+            @PathVariable @Positive(message = "{id.positive}") Integer id) {
+        this.bannerItemService.update(bannerItemDTO, id);
         return new UpdatedVO();
     }
 

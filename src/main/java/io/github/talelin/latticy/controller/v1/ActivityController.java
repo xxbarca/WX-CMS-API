@@ -1,9 +1,12 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
+import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.ActivityDTO;
 import io.github.talelin.latticy.model.ActivityDetailDO;
 import io.github.talelin.latticy.service.ActivityService;
@@ -71,11 +74,13 @@ public class ActivityController {
     public PageResponseVO<ActivityDO> page(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Long count,
+            @Max(value = 30, message = "{page.count.max}") Integer count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Long page
+            @Min(value = 0, message = "{page.number.min}") Integer page
     ) {
-        return null;
+        Page<ActivityDO> pager = new Page<>(page, count);
+        IPage<ActivityDO> paging = activityService.getBaseMapper().selectPage(pager, null);
+        return PageUtil.build(paging);
     }
 
 }

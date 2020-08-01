@@ -22,14 +22,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryService extends ServiceImpl<CategoryMapper, CategoryDO> {
 
-    public CategoryDO getCategoryById(Long id) {
-        CategoryDO categoryDO = this.getById(id);
-        if (categoryDO == null) {
-            throw new NotFoundException(40000);
-        }
-        return categoryDO;
-    }
-
     public void updateCategory(CategoryDTO dto, Integer id) {
         CategoryDO categoryDO = this.getBaseMapper().selectById(id);
         if (categoryDO == null) {
@@ -55,6 +47,14 @@ public class CategoryService extends ServiceImpl<CategoryMapper, CategoryDO> {
             }
         }
         this.getBaseMapper().deleteById(id);
+    }
+
+    public CategoryDO getCategoryById(Integer id) {
+        CategoryDO categoryDO = this.getBaseMapper().selectById(id);
+        if (categoryDO == null) {
+            throw new NotFoundException(40000);
+        }
+        return categoryDO;
     }
 
 }

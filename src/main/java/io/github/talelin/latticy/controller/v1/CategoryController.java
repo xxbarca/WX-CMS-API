@@ -1,9 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 
-import io.github.talelin.core.annotation.GroupRequired;
-import io.github.talelin.core.annotation.PermissionMeta;
-import io.github.talelin.core.annotation.PermissionModule;
+import io.github.talelin.core.annotation.*;
 import io.github.talelin.latticy.dto.CategoryDTO;
 import io.github.talelin.latticy.service.CategoryService;
 import org.springframework.beans.BeanUtils;
@@ -61,8 +59,9 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Long id) {
-        return null;
+    @LoginRequired
+    public CategoryDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
+        return this.categoryService.getCategoryById(id);
     }
 
     @GetMapping("/page")

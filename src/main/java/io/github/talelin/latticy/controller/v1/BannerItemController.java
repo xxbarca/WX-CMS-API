@@ -51,7 +51,9 @@ public class BannerItemController {
     }
 
     @DeleteMapping("/{id}")
-    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Long id) {
+    @PermissionMeta(value = "删除Banner item")
+    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
+        this.bannerItemService.delete(id);
         return new DeletedVO();
     }
 

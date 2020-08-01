@@ -18,4 +18,6 @@ public interface BannerItemService extends IService<BannerItemDO> {
 
     void update(BannerItemDTO bannerItemDTO, Integer id);
 
+    void delete(Integer id);
+
 }

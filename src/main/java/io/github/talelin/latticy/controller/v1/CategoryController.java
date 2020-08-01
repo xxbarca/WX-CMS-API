@@ -3,9 +3,11 @@ package io.github.talelin.latticy.controller.v1;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.*;
+import io.github.talelin.latticy.common.enumeration.CategoryRootOrNotEnum;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.CategoryDTO;
 import io.github.talelin.latticy.service.CategoryService;
+import lombok.val;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +21,7 @@ import io.github.talelin.latticy.vo.UpdatedVO;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 /**
 * @author generator@TaleLin
@@ -92,6 +95,13 @@ public class CategoryController {
     ) {
         IPage<CategoryDO> paging = categoryService.getSubCategoriesByPage(count, page, id);
         return PageUtil.build(paging);
+    }
+
+    @GetMapping("/list")
+    @LoginRequired
+    public List<CategoryDO> getList() {
+        val notRoot = CategoryRootOrNotEnum.NOT_ROOT;
+        return this.categoryService.lambdaQuery().eq(CategoryDO::getIsRoot, notRoot).list();
     }
 
 }

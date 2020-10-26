@@ -36,18 +36,17 @@ public class BannerItemServiceImpl extends ServiceImpl<BannerItemMapper, BannerI
         if (bannerItemDO == null) {
             throw new NotFoundException(20001);
         }
-        BeanUtils.copyProperties(bannerItemDO, bannerItemDO);
+        BeanUtils.copyProperties(bannerItemDTO, bannerItemDO);
         this.getBaseMapper().updateById(bannerItemDO);
     }
 
     @Override
     public void delete(Integer id) {
-        BannerItemDO bannerItemDO = this.getBaseMapper().selectById(id);
-        if (bannerItemDO == null) {
+        BannerItemDO bannerItem = this.getById(id);
+        if (bannerItem == null) {
             throw new NotFoundException(20001);
         }
-        BeanUtils.copyProperties(bannerItemDO, bannerItemDO);
-        this.getBaseMapper().updateById(bannerItemDO);
+        this.getBaseMapper().deleteById(id);
 
     }
 }

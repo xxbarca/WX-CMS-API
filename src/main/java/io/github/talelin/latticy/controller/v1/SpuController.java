@@ -3,6 +3,7 @@ package io.github.talelin.latticy.controller.v1;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.GroupRequired;
+import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
@@ -21,6 +22,7 @@ import io.github.talelin.latticy.vo.UpdatedVO;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 /**
 * @author generator@TaleLin
@@ -46,6 +48,12 @@ public class SpuController {
     @GetMapping("/{id}/detail")
     public SpuDetailDO detail(@PathVariable(value = "id") @Positive Long id) {
         return spuService.getDetail(id);
+    }
+
+    @GetMapping("/key")
+    @LoginRequired
+    public List<Integer> getSpecKeys(@RequestParam(name = "id") @Positive(message = "{id}") Integer id) {
+        return spuService.getBaseMapper().getSpecKeys(id);
     }
 
     @GetMapping("/page")

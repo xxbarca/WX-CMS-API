@@ -3,7 +3,10 @@ package io.github.talelin.latticy.mapper;
 import io.github.talelin.latticy.model.SpuDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.talelin.latticy.model.SpuDetailDO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,7 +18,18 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SpuMapper extends BaseMapper<SpuDO> {
-
+    /**
+     * 获取spu详情
+     * @param id spu的id
+     * @return SpuDetailDO
+     */
     SpuDetailDO getDetail(Long id);
+
+    /**
+     * 获取指定spu的规格id列表
+     * @param id spu的id
+     * @return spu关联的规格id列表
+     */
+    List<Integer> getSpecKeys(@Param("id") Integer id);
 
 }

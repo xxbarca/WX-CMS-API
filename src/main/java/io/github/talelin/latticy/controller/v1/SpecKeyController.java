@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.latticy.service.SpecKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,12 @@ public class SpecKeyController {
     @RequestMapping("/by/spu/{id}")
     public List<SpecKeyDO> getBySpuId(@PathVariable(value = "id") @Positive Long id) {
         return this.specKeyService.getBySpuId(id);
+    }
+
+    @GetMapping("/list")
+    @LoginRequired
+    public List<SpecKeyDO> getList() {
+        return specKeyService.list();
     }
 
 

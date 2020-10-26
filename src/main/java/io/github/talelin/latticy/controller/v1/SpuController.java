@@ -2,6 +2,8 @@ package io.github.talelin.latticy.controller.v1;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.talelin.core.annotation.GroupRequired;
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.SpuDTO;
@@ -58,6 +60,14 @@ public class SpuController {
         IPage<SpuDO> paging = spuService.getBaseMapper().selectPage(pager, null);
         return PageUtil.build(paging);
 //        return new PageResponseVO<>(paging.getTotal(), paging.getRecords(), paging.getCurrent(), paging.getSize());
+    }
+
+    @DeleteMapping("/{id}")
+    @PermissionMeta("删除SPU")
+    @GroupRequired
+    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
+        spuService.delete(id);
+        return new DeletedVO();
     }
 
 }

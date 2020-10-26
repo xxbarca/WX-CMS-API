@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.service;
 
+import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.latticy.dto.SpuDTO;
 import io.github.talelin.latticy.model.*;
 import io.github.talelin.latticy.mapper.SpuMapper;
@@ -101,6 +102,14 @@ public class SpuService extends ServiceImpl<SpuMapper, SpuDO> {
             return spuKeyDO;
         }).collect(Collectors.toList());
         spuKeyService.saveBatch(spuKeyDOList);
+    }
+
+    public void delete(Integer id) {
+        SpuDO exist = this.getById(id);
+        if (exist == null) {
+            throw new NotFoundException(70000);
+        }
+        this.getBaseMapper().deleteById(id);
     }
 
 }

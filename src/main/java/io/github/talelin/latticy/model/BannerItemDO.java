@@ -36,6 +36,6 @@ public class BannerItemDO {
     @TableLogic
     private Date deleteTime;
 
-    private Long bannerId;
+    private Integer bannerId;
 
 }

@@ -11,35 +11,5 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/v1/upload")
 public class UploadController {
-    @ResponseBody
-    @RequestMapping(value="/uploadImg", method= RequestMethod.POST)
-    public ResultInfo uploadImg(@RequestParam MultipartFile image, HttpServletRequest request) {
-        ResultInfo result = new ResultInfo();
-        if (image.isEmpty()) {
-            result.setCode(400);
-            result.setMsg("文件为空，请重新上传");
-            return result;
-        }
 
-        try {
-            byte[] bytes = image.getBytes();
-            String imageName = UUID.randomUUID().toString();
-
-            QiniuCloudUtil qiniuUtil = new QiniuCloudUtil();
-            try {
-                //使用base64方式上传到七牛云
-                String url = qiniuUtil.put64image(bytes, imageName);
-                result.setCode(200);
-                result.setMsg("文件上传成功");
-                result.setInfo(url);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return result;
-        } catch (IOException e) {
-            result.setCode(500);
-            result.setMsg("文件上传发生异常！");
-            return result;
-        }
-    }
 }

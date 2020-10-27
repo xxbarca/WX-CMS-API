@@ -12,5 +12,8 @@
         <result column="index" property="index" />
         <result column="spu_id" property="spuId" />
     </resultMap>
+    <delete id="hardDeleteImgsBySpuId">
+        delete from spu_detail_img where spu_detail_img.`spu_id` = #{spuId}
+    </delete>
 
 </mapper>

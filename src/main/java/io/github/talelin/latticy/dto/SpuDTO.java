@@ -26,7 +26,7 @@ public class SpuDTO {
 
     @Positive
     @NotNull
-    private Long categoryId;
+    private Integer categoryId;
 
     @Max(1)
     @Min(0)
@@ -59,5 +59,7 @@ public class SpuDTO {
      * 详情图
      * */
     private List<String> detailImgList;
+
+    private List<String> spuDetailImgList;
 
 }

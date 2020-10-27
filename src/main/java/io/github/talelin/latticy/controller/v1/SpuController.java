@@ -70,6 +70,15 @@ public class SpuController {
 //        return new PageResponseVO<>(paging.getTotal(), paging.getRecords(), paging.getCurrent(), paging.getSize());
     }
 
+    @PutMapping("/{id}")
+    @PermissionMeta("更新SPU")
+    @GroupRequired
+    public UpdatedVO update(@RequestBody @Validated SpuDTO dto,
+                            @PathVariable @Positive(message = "{id.positive}") Integer id) {
+        spuService.update(dto, id);
+        return new UpdatedVO();
+    }
+
     @DeleteMapping("/{id}")
     @PermissionMeta("删除SPU")
     @GroupRequired

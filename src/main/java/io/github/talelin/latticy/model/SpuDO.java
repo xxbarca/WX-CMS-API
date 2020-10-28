@@ -37,7 +37,7 @@ public class SpuDO extends BaseModel {
 
     private Long rootCategoryId;
 
-    private Long sketchSpecId;
+    private Integer sketchSpecId;
 
     private String subtitle;
 

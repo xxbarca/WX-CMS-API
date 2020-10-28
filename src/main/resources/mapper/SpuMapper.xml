@@ -42,20 +42,20 @@
 
     <select id="getDetail" resultMap="DetailResultMap">
         SELECT s.*,
-                sku.title AS default_sku_title,
+               sku.title AS default_sku_title,
                c.name    AS category_name,
                sk.name   AS sketch_spec_key_name,
                si.img    AS spu_img,
                sdi.img   AS detail_img
 
         FROM spu s
-                 JOIN sku ON sku.id = s.default_sku_id
-                 JOIN category c ON c.id = s.category_id
-                 JOIN spec_key sk ON sk.id = s.sketch_spec_id
-                 JOIN spu_img si ON si.spu_id = s.id
-                 JOIN spu_detail_img sdi ON sdi.spu_id = s.id
+                 LEFT OUTER JOIN sku ON sku.id = s.default_sku_id
+                 LEFT OUTER JOIN category c ON c.id = s.category_id
+                 LEFT OUTER JOIN spec_key sk ON sk.id = s.sketch_spec_id
+                 LEFT OUTER JOIN spu_img si ON si.spu_id = s.id
+                 LEFT OUTER JOIN spu_detail_img sdi ON sdi.spu_id = s.id
         WHERE s.id = #{id}
-            AND s.delete_time IS NULL
+          AND s.delete_time IS NULL
     </select>
     <select id="getSpecKeys" resultType="java.lang.Integer">
         select s.spec_key_id from spu_key s where s.spu_id = #{id}

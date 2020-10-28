@@ -47,6 +47,7 @@ public class SpuService extends ServiceImpl<SpuMapper, SpuDO> {
 
         SpuDO spuDO = new SpuDO();
         BeanUtils.copyProperties(dto, spuDO);
+        spuDO.setCategoryId(dto.getCategoryId().longValue());
         CategoryDO categoryDO = categoryService.getCategoryById(dto.getCategoryId().intValue());
         spuDO.setRootCategoryId(categoryDO.getParentId());
         this.save(spuDO);

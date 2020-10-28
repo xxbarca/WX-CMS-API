@@ -37,6 +37,7 @@ public class SpuController {
     private SpuService spuService;
 
     @PostMapping("")
+    @PermissionMeta("创建SPU")
     public CreatedVO create(@RequestBody @Validated SpuDTO spuDTO) {
         spuService.create(spuDTO);
         return new CreatedVO();

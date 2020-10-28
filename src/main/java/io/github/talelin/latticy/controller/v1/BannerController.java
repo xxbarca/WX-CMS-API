@@ -42,7 +42,7 @@ public class BannerController {
     public CreatedVO create(@RequestBody @Validated BannerDTO bannerDTO) {
         BannerDO bannerDO = new BannerDO();
         BeanUtils.copyProperties(bannerDTO, bannerDO);
-        this.bannerService.create(bannerDO);
+        this.bannerService.save(bannerDO);
         return new CreatedVO();
     }
 

@@ -11,6 +11,7 @@ import io.github.talelin.latticy.dto.ThemeDTO;
 import io.github.talelin.latticy.model.ThemeDO;
 import io.github.talelin.latticy.service.ThemeService;
 import io.github.talelin.latticy.vo.CreatedVO;
+import io.github.talelin.latticy.vo.DeletedVO;
 import io.github.talelin.latticy.vo.PageResponseVO;
 import io.github.talelin.latticy.vo.UpdatedVO;
 import org.springframework.beans.BeanUtils;
@@ -76,5 +77,17 @@ public class ThemeController {
         BeanUtils.copyProperties(dto, theme);
         themeService.getBaseMapper().updateById(theme);
         return new UpdatedVO();
+    }
+
+    @DeleteMapping("/{id}")
+    @PermissionMeta("删除主题")
+    @GroupRequired
+    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
+        ThemeDO theme = themeService.getBaseMapper().selectById(id);
+        if (theme == null) {
+            throw new NotFoundException(30000);
+        }
+        themeService.getBaseMapper().deleteById(id);
+        return new DeletedVO();
     }
 }

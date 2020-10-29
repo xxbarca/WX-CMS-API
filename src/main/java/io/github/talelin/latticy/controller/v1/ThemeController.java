@@ -8,6 +8,7 @@ import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.ThemeDTO;
+import io.github.talelin.latticy.model.SimplifySpuDO;
 import io.github.talelin.latticy.model.ThemeDO;
 import io.github.talelin.latticy.service.ThemeService;
 import io.github.talelin.latticy.vo.CreatedVO;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/theme")
@@ -89,5 +91,14 @@ public class ThemeController {
         }
         themeService.getBaseMapper().deleteById(id);
         return new DeletedVO();
+    }
+
+    /**
+     * 选择theme对应的spu
+     * */
+    @GetMapping("/spus")
+    @LoginRequired
+    public List<SimplifySpuDO> getSpus(@RequestParam(name = "id") @Positive(message = "{id}") Integer id) {
+        return themeService.getSpus(id);
     }
 }

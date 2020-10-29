@@ -24,11 +24,14 @@ public class CouponTemplateDTO {
     @DecimalMin(value = "0.00")
     private BigDecimal minus;
 
-    /**f
+    /**
      * 国内多是打折，国外多是百分比 off
      */
     @DecimalMin(value = "0.00")
     private BigDecimal discount;
+
+    @DecimalMin(value = "0.00")
+    private BigDecimal rate;
 
     /**
      * 1. 满减券 2.折扣券 3.无门槛券 4.满金额折扣券

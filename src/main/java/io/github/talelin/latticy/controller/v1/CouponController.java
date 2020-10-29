@@ -7,9 +7,11 @@ import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.dto.CouponDTO;
 import io.github.talelin.latticy.model.CouponDO;
+import io.github.talelin.latticy.model.CouponTemplateDO;
 import io.github.talelin.latticy.service.CouponService;
 import io.github.talelin.latticy.vo.CreatedVO;
 import io.github.talelin.latticy.vo.DeletedVO;
+import io.github.talelin.latticy.vo.UpdatedVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,16 @@ public class CouponController {
         return new CreatedVO();
     }
 
+    @PutMapping("/{id}")
+    @PermissionMeta("更新优惠券")
+    @GroupRequired
+    public UpdatedVO update(
+            @RequestBody @Validated CouponDTO dto,
+            @PathVariable @Positive(message = "{id}") Integer id) {
+        couponService.update(dto, id);
+        return new UpdatedVO();
+    }
+
     @DeleteMapping("/{id}")
     @PermissionMeta("删除优惠券")
     @GroupRequired
@@ -51,6 +63,13 @@ public class CouponController {
             throw new NotFoundException(100000);
         }
         return couponDO;
+    }
+
+    @GetMapping("/templates")
+    @LoginRequired
+    public List<CouponTemplateDO> templates() {
+        List<CouponTemplateDO> templates = couponService.getTemplates();
+        return templates;
     }
 
     @GetMapping("/list")

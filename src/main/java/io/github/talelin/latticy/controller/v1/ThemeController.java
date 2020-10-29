@@ -101,4 +101,12 @@ public class ThemeController {
     public List<SimplifySpuDO> getSpus(@RequestParam(name = "id") @Positive(message = "{id}") Integer id) {
         return themeService.getSpus(id);
     }
+
+    @DeleteMapping("/spu/{id}")
+    @PermissionMeta("删除专题下的spu")
+    @GroupRequired
+    public DeletedVO deleteThemeSpu(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
+        themeService.deleteThemeSpu(id);
+        return new DeletedVO();
+    }
 }

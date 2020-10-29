@@ -9,4 +9,6 @@ import java.util.List;
 public interface ThemeService extends IService<ThemeDO> {
 
     List<SimplifySpuDO> getSpus(Integer id);
+
+    void deleteThemeSpu(Integer id);
 }

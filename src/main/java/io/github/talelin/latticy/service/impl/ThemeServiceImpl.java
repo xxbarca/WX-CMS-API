@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.talelin.latticy.mapper.ThemeMapper;
 import io.github.talelin.latticy.mapper.ThemeSpuMapper;
 import io.github.talelin.latticy.model.SimplifySpuDO;
+import io.github.talelin.latticy.model.SpuDO;
 import io.github.talelin.latticy.model.ThemeDO;
 import io.github.talelin.latticy.service.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,10 @@ public class ThemeServiceImpl extends ServiceImpl<ThemeMapper, ThemeDO> implemen
     public void deleteThemeSpu(Integer id) {
         themeSpuMapper.deleteById(id);
 
+    }
+
+    @Override
+    public List<SpuDO> getSimplifySpus(Integer id) {
+        return themeSpuMapper.getSimplifySpus(id);
     }
 }

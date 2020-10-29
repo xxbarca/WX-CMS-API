@@ -9,6 +9,7 @@ import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.ThemeDTO;
 import io.github.talelin.latticy.model.SimplifySpuDO;
+import io.github.talelin.latticy.model.SpuDO;
 import io.github.talelin.latticy.model.ThemeDO;
 import io.github.talelin.latticy.service.ThemeService;
 import io.github.talelin.latticy.vo.CreatedVO;
@@ -32,6 +33,9 @@ public class ThemeController {
     @Autowired
     private ThemeService themeService;
 
+    /**
+     * 获取Theme列表
+     * */
     @GetMapping("/page")
     @LoginRequired
     public PageResponseVO<ThemeDO> page(
@@ -46,6 +50,9 @@ public class ThemeController {
         return PageUtil.build(paging);
     }
 
+    /**
+     * 获取theme详情
+     * */
     @GetMapping("/{id}")
     @LoginRequired
     public ThemeDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
@@ -108,5 +115,11 @@ public class ThemeController {
     public DeletedVO deleteThemeSpu(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
         themeService.deleteThemeSpu(id);
         return new DeletedVO();
+    }
+
+    @GetMapping("/spu/list")
+    @LoginRequired
+    public List<SpuDO> getSpuList(@RequestParam(name = "id") @Positive(message = "{id}") Integer id) {
+        return themeService.getSimplifySpus(id);
     }
 }

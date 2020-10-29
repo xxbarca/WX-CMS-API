@@ -2,13 +2,20 @@ package io.github.talelin.latticy.controller.v1;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
+import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
+import io.github.talelin.latticy.dto.ThemeDTO;
 import io.github.talelin.latticy.model.ThemeDO;
 import io.github.talelin.latticy.service.ThemeService;
+import io.github.talelin.latticy.vo.CreatedVO;
 import io.github.talelin.latticy.vo.PageResponseVO;
+import io.github.talelin.latticy.vo.UpdatedVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
@@ -44,5 +51,30 @@ public class ThemeController {
             throw new NotFoundException(30000);
         }
         return theme;
+    }
+
+    @PostMapping("")
+    @PermissionMeta("创建主题")
+    @GroupRequired
+    public CreatedVO create(@Validated @RequestBody ThemeDTO dto) {
+        ThemeDO theme = new ThemeDO();
+        BeanUtils.copyProperties(dto, theme);
+        themeService.getBaseMapper().insert(theme);
+        return new CreatedVO();
+    }
+
+    @PutMapping("/{id}")
+    @PermissionMeta("更新主题")
+    @GroupRequired
+    public UpdatedVO update(
+            @Validated @RequestBody ThemeDTO dto,
+            @PathVariable @Positive(message = "{id.positive}") Integer id) {
+        ThemeDO theme = themeService.getById(id);
+        if (theme == null) {
+            throw new NotFoundException(30000);
+        }
+        BeanUtils.copyProperties(dto, theme);
+        themeService.getBaseMapper().updateById(theme);
+        return new UpdatedVO();
     }
 }

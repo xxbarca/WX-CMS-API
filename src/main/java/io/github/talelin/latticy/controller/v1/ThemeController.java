@@ -8,6 +8,7 @@ import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.ThemeDTO;
+import io.github.talelin.latticy.dto.ThemeSpuDTO;
 import io.github.talelin.latticy.model.SimplifySpuDO;
 import io.github.talelin.latticy.model.SpuDO;
 import io.github.talelin.latticy.model.ThemeDO;
@@ -121,5 +122,13 @@ public class ThemeController {
     @LoginRequired
     public List<SpuDO> getSpuList(@RequestParam(name = "id") @Positive(message = "{id}") Integer id) {
         return themeService.getSimplifySpus(id);
+    }
+
+    @PostMapping("/spu")
+    @PermissionMeta("创建专题下的spu")
+    @GroupRequired
+    public CreatedVO addThemeSpu(@RequestBody @Validated ThemeSpuDTO dto) {
+        themeService.addThemeSpu(dto);
+        return new CreatedVO();
     }
 }

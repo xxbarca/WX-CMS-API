@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.github.talelin.latticy.dto.ThemeSpuDTO;
 import io.github.talelin.latticy.model.SimplifySpuDO;
 import io.github.talelin.latticy.model.SpuDO;
 import io.github.talelin.latticy.model.ThemeDO;
@@ -14,4 +15,6 @@ public interface ThemeService extends IService<ThemeDO> {
     void deleteThemeSpu(Integer id);
 
     List<SpuDO> getSimplifySpus(Integer id);
+
+    void addThemeSpu(ThemeSpuDTO dto);
 }

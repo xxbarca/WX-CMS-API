@@ -1,8 +1,12 @@
 package io.github.talelin.latticy.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.github.talelin.latticy.model.BaseModel;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,14 +21,13 @@ import lombok.experimental.Accessors;
 @TableName("activity")
 public class ActivityDO extends BaseModel {
 
-
     private String title;
 
     private String description;
 
-    private LocalDateTime startTime;
+    private Date startTime;
 
-    private LocalDateTime endTime;
+    private Date endTime;
 
     private String remark;
 
@@ -35,8 +38,5 @@ public class ActivityDO extends BaseModel {
     private String internalTopImg;
 
     private String name;
-
-    private String internationalTopImg;
-
 
 }

@@ -1,7 +1,10 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.service.SpecKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +48,19 @@ public class SpecKeyController {
     @LoginRequired
     public List<SpecKeyDO> getList() {
         return specKeyService.list();
+    }
+
+    @GetMapping("/page")
+    public PageResponseVO<SpecKeyDO> page(
+            @RequestParam(name = "count", required = false, defaultValue = "10")
+            @Min(value = 1, message = "{page.count.min}")
+            @Max(value = 30, message = "{page.count.max}") Integer count,
+            @RequestParam(name = "page", required = false, defaultValue = "0")
+            @Min(value = 0, message = "{page.number.min}") Integer page
+    ) {
+        Page<SpecKeyDO> pager = new Page<>(page, count);
+        IPage<SpecKeyDO> paging = specKeyService.getBaseMapper().selectPage(pager, null);
+        return PageUtil.build(paging);
     }
 
 

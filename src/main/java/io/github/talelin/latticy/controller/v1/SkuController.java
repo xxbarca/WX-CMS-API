@@ -4,9 +4,11 @@ package io.github.talelin.latticy.controller.v1;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.service.SkuService;
+import io.github.talelin.latticy.service.SkuSpecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +44,9 @@ public class SkuController {
     @Autowired
     private SkuService skuService;
 
+    @Autowired
+    private SkuSpecService skuSpecService;
+
     @GetMapping("/by/spu/{id}")
     public List<SkuDO> getBySpuId(@PathVariable(value = "id") @Positive Long spuId) {
         return this.skuService.getBaseMapper().selectList(Wrappers.<SkuDO>lambdaQuery().eq(SkuDO::getSpuId, spuId));
@@ -63,6 +68,13 @@ public class SkuController {
         Page<SkuDO> pager = new Page<>(page, count);
         IPage<SkuDO> paging = skuService.getBaseMapper().selectPage(pager, null);
         return PageUtil.build(paging);
+    }
+
+    @DeleteMapping("/{id}")
+    @PermissionMeta("删除SKU")
+    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
+        skuService.delete(id);
+        return new DeletedVO();
     }
 
 }

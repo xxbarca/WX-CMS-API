@@ -14,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SkuService extends IService<SkuDO> {
 
+    void delete(Integer id);
+
 }

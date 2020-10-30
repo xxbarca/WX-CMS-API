@@ -2,18 +2,16 @@ package io.github.talelin.latticy.controller.v1;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
+import io.github.talelin.latticy.dto.SpecKeyDTO;
 import io.github.talelin.latticy.service.SpecKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import io.github.talelin.latticy.model.SpecKeyDO;
 import io.github.talelin.latticy.vo.CreatedVO;
 import io.github.talelin.latticy.vo.DeletedVO;
@@ -23,8 +21,6 @@ import io.github.talelin.latticy.vo.UpdatedVO;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
-
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -42,6 +38,14 @@ public class SpecKeyController {
     @RequestMapping("/by/spu/{id}")
     public List<SpecKeyDO> getBySpuId(@PathVariable(value = "id") @Positive Long id) {
         return this.specKeyService.getBySpuId(id);
+    }
+
+    @PostMapping("")
+    @PermissionMeta(value = "创建规格名")
+    @GroupRequired
+    public CreatedVO create(@Validated @RequestBody SpecKeyDTO dto) {
+        specKeyService.create(dto);
+        return new CreatedVO();
     }
 
     @GetMapping("/list")

@@ -7,8 +7,10 @@ import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
+import io.github.talelin.latticy.model.SkuDetailDO;
 import io.github.talelin.latticy.service.SkuService;
 import io.github.talelin.latticy.service.SkuSpecService;
+import io.github.talelin.latticy.service.impl.SkuServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +44,7 @@ import java.util.List;
 public class SkuController {
 
     @Autowired
-    private SkuService skuService;
+    private SkuServiceImpl skuService;
 
     @Autowired
     private SkuSpecService skuSpecService;
@@ -51,6 +53,12 @@ public class SkuController {
     public List<SkuDO> getBySpuId(@PathVariable(value = "id") @Positive Long spuId) {
         return this.skuService.getBaseMapper().selectList(Wrappers.<SkuDO>lambdaQuery().eq(SkuDO::getSpuId, spuId));
 //        return this.skuService.lambdaQuery().eq(SkuDO::getSpuId, spuId).list();
+    }
+
+    @GetMapping("/{id}/detail")
+    @LoginRequired
+    public SkuDetailDO getDetail(@PathVariable(value = "id") @Positive(message = "{id.positive}") Long id) {
+        return skuService.getBaseMapper().getDetail(id);
     }
 
     /**

@@ -20,5 +20,22 @@
         <result column="stock" property="stock" />
         <result column="title" property="title" />
     </resultMap>
+    <select id="getDetail" resultType="io.github.talelin.latticy.model.SkuDetailDO">
+        select s.id,
+        s.price,
+        s.discount_price,
+        s.online,
+        s.img,
+        s.title,
+        s.spu_id,
+        s.code,
+        s.stock,
+        s.specs,
+        p.title spu_name
+        from sku s
+        left join spu p on p.id = s.spu_id
+        where s.id = #{id}
+        and s.delete_time is null
+    </select>
 
 </mapper>

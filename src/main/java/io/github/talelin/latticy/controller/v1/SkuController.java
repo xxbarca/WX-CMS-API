@@ -54,6 +54,15 @@ public class SkuController {
         return new CreatedVO();
     }
 
+    @PutMapping("/{id}")
+    @PermissionMeta("更新SKU")
+    @GroupRequired
+    public UpdatedVO update(@RequestBody @Validated SkuDTO dto,
+                            @PathVariable @Positive(message = "{id.positive}") Integer id) {
+        skuService.update(dto, id);
+        return new UpdatedVO();
+    }
+
     @GetMapping("/by/spu/{id}")
     public List<SkuDO> getBySpuId(@PathVariable(value = "id") @Positive Long spuId) {
         return this.skuService.getBaseMapper().selectList(Wrappers.<SkuDO>lambdaQuery().eq(SkuDO::getSpuId, spuId));

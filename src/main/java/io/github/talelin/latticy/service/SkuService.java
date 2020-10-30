@@ -19,4 +19,6 @@ public interface SkuService extends IService<SkuDO> {
 
     void create(SkuDTO dto);
 
+    void update(SkuDTO dto, Integer id);
+
 }

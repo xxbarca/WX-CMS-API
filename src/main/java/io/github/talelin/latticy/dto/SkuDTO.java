@@ -15,6 +15,9 @@ import java.util.List;
 
 @Data
 public class SkuDTO {
+
+    private Long id;
+
     @NotBlank
     @Length(min = 1, max = 255)
     private String title;
@@ -38,7 +41,7 @@ public class SkuDTO {
     private BigDecimal price;
 
     @Positive
-    private Integer stock;
+    private Long stock;
 
     /**
      *  规则参数列表

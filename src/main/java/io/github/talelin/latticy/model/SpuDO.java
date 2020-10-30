@@ -47,5 +47,4 @@ public class SpuDO extends BaseModel {
 
     private String spuThemeImg;
 
-
 }

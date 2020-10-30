@@ -2,6 +2,7 @@ package io.github.talelin.latticy.controller.v1;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
@@ -46,6 +47,18 @@ public class SpecKeyController {
     public CreatedVO create(@Validated @RequestBody SpecKeyDTO dto) {
         specKeyService.create(dto);
         return new CreatedVO();
+    }
+
+    @DeleteMapping("/{id}")
+    @PermissionMeta(value = "删除规格名")
+    @GroupRequired
+    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
+        SpecKeyDO specKey = specKeyService.getById(id);
+        if (specKey == null) {
+            throw new NotFoundException(60001);
+        }
+        specKeyService.getBaseMapper().deleteById(id);
+        return new DeletedVO();
     }
 
     @GetMapping("/list")

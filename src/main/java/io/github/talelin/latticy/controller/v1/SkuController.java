@@ -1,7 +1,11 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -42,6 +46,23 @@ public class SkuController {
     public List<SkuDO> getBySpuId(@PathVariable(value = "id") @Positive Long spuId) {
         return this.skuService.getBaseMapper().selectList(Wrappers.<SkuDO>lambdaQuery().eq(SkuDO::getSpuId, spuId));
 //        return this.skuService.lambdaQuery().eq(SkuDO::getSpuId, spuId).list();
+    }
+
+    /**
+     * 获取sku列表
+     * */
+    @GetMapping("/page")
+    @LoginRequired
+    public PageResponseVO<SkuDO> page(
+            @RequestParam(name = "count", required = false, defaultValue = "10")
+            @Min(value = 1, message = "{page.count.min}")
+            @Max(value = 30, message = "{page.count.max}") Integer count,
+            @RequestParam(name = "page", required = false, defaultValue = "0")
+            @Min(value = 0, message = "{page.number.min}") Integer page
+    ) {
+        Page<SkuDO> pager = new Page<>(page, count);
+        IPage<SkuDO> paging = skuService.getBaseMapper().selectPage(pager, null);
+        return PageUtil.build(paging);
     }
 
 }

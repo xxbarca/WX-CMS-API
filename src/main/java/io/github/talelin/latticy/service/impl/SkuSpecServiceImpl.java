@@ -10,7 +10,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SkuSpecServiceImpl extends ServiceImpl<SkuSpecMapper, SkuSpecDO> implements SkuSpecService {
-    @Override
-    public void test() {
-    }
+
 }

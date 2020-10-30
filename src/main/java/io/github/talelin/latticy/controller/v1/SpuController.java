@@ -88,4 +88,10 @@ public class SpuController {
         return new DeletedVO();
     }
 
+    @GetMapping("/list")
+    @LoginRequired
+    public List<SpuDO> getList() {
+        return spuService.list();
+    }
+
 }

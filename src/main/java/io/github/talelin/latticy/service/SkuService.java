@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.service;
 
+import io.github.talelin.latticy.dto.SkuDTO;
 import io.github.talelin.latticy.mapper.SkuMapper;
 import io.github.talelin.latticy.model.SkuDO;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -15,5 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface SkuService extends IService<SkuDO> {
 
     void delete(Integer id);
+
+    void create(SkuDTO dto);
 
 }

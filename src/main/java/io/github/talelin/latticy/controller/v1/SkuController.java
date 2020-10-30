@@ -3,23 +3,20 @@ package io.github.talelin.latticy.controller.v1;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
+import io.github.talelin.latticy.dto.SkuDTO;
 import io.github.talelin.latticy.model.SkuDetailDO;
 import io.github.talelin.latticy.service.SkuService;
 import io.github.talelin.latticy.service.SkuSpecService;
 import io.github.talelin.latticy.service.impl.SkuServiceImpl;
+import io.github.talelin.latticy.service.impl.SkuSpecServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import io.github.talelin.latticy.model.SkuDO;
 import io.github.talelin.latticy.vo.CreatedVO;
 import io.github.talelin.latticy.vo.DeletedVO;
@@ -30,9 +27,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 
-import org.springframework.web.bind.annotation.RestController;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author generator@TaleLin
@@ -47,7 +44,15 @@ public class SkuController {
     private SkuServiceImpl skuService;
 
     @Autowired
-    private SkuSpecService skuSpecService;
+    private SkuSpecServiceImpl skuSpecService;
+
+    @PostMapping("")
+    @PermissionMeta("创建SKU")
+    @GroupRequired
+    public CreatedVO create(@RequestBody @Validated SkuDTO dto) {
+        skuService.create(dto);
+        return new CreatedVO();
+    }
 
     @GetMapping("/by/spu/{id}")
     public List<SkuDO> getBySpuId(@PathVariable(value = "id") @Positive Long spuId) {
@@ -83,6 +88,21 @@ public class SkuController {
     public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
         skuService.delete(id);
         return new DeletedVO();
+    }
+
+    @GetMapping("/spec-value-id")
+    @LoginRequired
+    public Map<String, Integer> getSpecValueId(
+            @RequestParam(name = "key_id", required = false)
+            @Positive(message = "{id}") Integer keyId,
+            @RequestParam(name = "sku_id", required = false)
+            @Positive(message = "{id}") Integer skuId
+    ) {
+        // 在spu下选择 spec_key 后，在相关 sku 在spec_key下选择 spec_value
+        Integer specValueId = skuSpecService.getBaseMapper().getSpecValueId(keyId, skuId);
+        HashMap<String, Integer> result = new HashMap<>(1);
+        result.put("value_id", specValueId);
+        return result;
     }
 
 }

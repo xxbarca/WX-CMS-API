@@ -13,4 +13,12 @@ public interface SkuSpecMapper extends BaseMapper<SkuSpecDO> {
      * @param skuId Integer
      */
     void deleteSpecs(Long spuId, Long skuId);
+
+    /**
+     * 获取已选的specId
+     * @param keyId   规格键 id
+     * @param skuId   sku id
+     * @return 规格值id
+     */
+    Integer getSpecValueId(Integer keyId, Integer skuId);
 }

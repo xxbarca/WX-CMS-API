@@ -6,4 +6,9 @@
     <delete id="deleteSpecs">
         delete from sku_spec where sku_spec.spu_id=#{spuId} and sku_spec.sku_id=#{skuId}
     </delete>
+    <select id="getSpecValueId" resultType="java.lang.Integer">
+        select s.value_id as value_id from sku_spec s
+        where s.sku_id = #{skuId}
+        and s.key_id = #{keyId}
+    </select>
 </mapper>

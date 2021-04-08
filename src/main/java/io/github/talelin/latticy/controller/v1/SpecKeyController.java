@@ -88,5 +88,15 @@ public class SpecKeyController {
         return specKeyAndItems;
     }
 
+    @PutMapping("/{id}")
+    @PermissionMeta(value = "更新规格名")
+    @GroupRequired
+    public UpdatedVO update(
+            @Validated @RequestBody SpecKeyDTO dto,
+            @PathVariable @Positive(message = "{id.positive}") Integer id) {
+        specKeyService.update(dto, id);
+        return new UpdatedVO();
+    }
+
 
 }

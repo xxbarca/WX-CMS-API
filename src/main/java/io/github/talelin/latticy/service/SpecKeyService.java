@@ -14,6 +14,7 @@ import io.github.talelin.latticy.model.SpecValueDO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -63,5 +64,18 @@ public class SpecKeyService extends ServiceImpl<SpecKeyMapper, SpecKeyDO> {
         SpecKeyAndItemsBO specKeyAndItems = new SpecKeyAndItemsBO(specKey, items);
         return specKeyAndItems;
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void update(SpecKeyDTO dto, Integer id) {
+        SpecKeyDO specKey = this.getById(id);
+        if (specKey == null) {
+            throw new NotFoundException(60001);
+        }
+        BeanUtils.copyProperties(dto, specKey);
+        this.updateById(specKey);
+
+        // TODO - 跟新 sku 的 spec, why
+    }
+
 
 }

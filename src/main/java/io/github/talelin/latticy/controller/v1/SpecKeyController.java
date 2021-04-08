@@ -6,6 +6,7 @@ import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
+import io.github.talelin.latticy.bo.SpecKeyAndItemsBO;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.SpecKeyDTO;
@@ -78,6 +79,13 @@ public class SpecKeyController {
         Page<SpecKeyDO> pager = new Page<>(page, count);
         IPage<SpecKeyDO> paging = specKeyService.getBaseMapper().selectPage(pager, null);
         return PageUtil.build(paging);
+    }
+
+    @GetMapping("/{id}/detail")
+    @LoginRequired
+    public SpecKeyAndItemsBO detail(@PathVariable @Positive(message = "{id}") Integer id) {
+        SpecKeyAndItemsBO specKeyAndItems = specKeyService.getKeyAndValuesById(id);
+        return specKeyAndItems;
     }
 
 

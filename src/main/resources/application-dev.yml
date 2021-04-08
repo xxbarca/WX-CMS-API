@@ -31,6 +31,13 @@ logging:
     # SQL日志记录
     io.github.talelin.latticy.mapper: debug
 
+lin:
+  file:
+    qiniuyun:
+      access-key: beUAuJY13OuvnaJtvX-PJ00I3DYpgtDSetsB-aVj
+      secret-key: _SD1ffvMjJa967Ag5EAfRLgAa04HFJv8ObbL3Lcj
+      bucket: _SD1ffvMjJa967Ag5EAfRLgAa04HFJv8ObbL3Lcj
+
 
 
 

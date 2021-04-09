@@ -3,6 +3,7 @@ package io.github.talelin.latticy.mapper;
 import io.github.talelin.latticy.model.SkuDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.talelin.latticy.model.SkuDetailDO;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -12,6 +13,7 @@ import io.github.talelin.latticy.model.SkuDetailDO;
  * @author generator@TaleLin
  * @since 2020-05-28
  */
+@Repository
 public interface SkuMapper extends BaseMapper<SkuDO> {
 
     /**

@@ -25,4 +25,11 @@ public interface SpecValueService extends IService<SpecValueDO> {
      * @param id
      * */
     void delete(Integer id);
+
+    /**
+     * 更新规格值
+     * @param dto
+     * @param id
+     * */
+    void update(SpecValueDTO dto, Integer id);
 }

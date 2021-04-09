@@ -3,6 +3,7 @@ package io.github.talelin.latticy.mapper;
 import io.github.talelin.latticy.model.SpecKeyValueDO;
 import io.github.talelin.latticy.model.SpecValueDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -12,6 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author generator@TaleLin
  * @since 2020-05-29
  */
+@Repository
 public interface SpecValueMapper extends BaseMapper<SpecValueDO> {
 
     /**

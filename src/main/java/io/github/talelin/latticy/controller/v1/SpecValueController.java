@@ -66,4 +66,14 @@ public class SpecValueController {
         return specValue;
     }
 
+    @PutMapping("/{id}")
+    @PermissionMeta("更新规格值")
+    @GroupRequired
+    public UpdatedVO update(
+            @Validated @RequestBody SpecValueDTO dto,
+            @PathVariable @Positive(message = "{id.positive}") Integer id) {
+        specValueService.update(dto, id);
+        return new UpdatedVO();
+    }
+
 }

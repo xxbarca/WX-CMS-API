@@ -5,6 +5,8 @@ import io.github.talelin.latticy.model.SkuDO;
 import io.github.talelin.latticy.model.SkuSpecDO;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SkuSpecMapper extends BaseMapper<SkuSpecDO> {
     /**
@@ -21,4 +23,11 @@ public interface SkuSpecMapper extends BaseMapper<SkuSpecDO> {
      * @return 规格值id
      */
     Integer getSpecValueId(Integer keyId, Integer skuId);
+
+    /**
+     * 根据规格值id获取sku的id列表
+     * @param valueId 规格值id
+     * @return sku的id列表
+     */
+    List<Integer> getSkuIdsByValueId(Integer valueId);
 }

@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.dto.SpecValueDTO;
@@ -43,6 +44,14 @@ public class SpecValueController {
     public CreatedVO create(@Validated @RequestBody SpecValueDTO dto) {
         specValueService.create(dto);
         return new CreatedVO();
+    }
+
+    @DeleteMapping("/{id}")
+    @PermissionMeta("删除规格值")
+    @GroupRequired
+    public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
+        specValueService.delete(id);
+        return new DeletedVO();
     }
 
 }

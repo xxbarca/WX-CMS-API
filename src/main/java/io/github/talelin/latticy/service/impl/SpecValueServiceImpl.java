@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.service.impl;
 
+import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.latticy.dto.SpecValueDTO;
 import io.github.talelin.latticy.model.SpecValueDO;
 import io.github.talelin.latticy.mapper.SpecValueMapper;
@@ -24,5 +25,14 @@ public class SpecValueServiceImpl extends ServiceImpl<SpecValueMapper, SpecValue
         SpecValueDO specValueDO = new SpecValueDO();
         BeanUtils.copyProperties(dto, specValueDO);
         this.save(specValueDO);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        SpecValueDO specValue = this.getById(id);
+        if (specValue == null) {
+            throw new NotFoundException(60002);
+        }
+        this.getBaseMapper().deleteById(id);
     }
 }

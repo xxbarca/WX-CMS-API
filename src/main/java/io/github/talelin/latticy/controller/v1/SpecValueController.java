@@ -1,7 +1,9 @@
 package io.github.talelin.latticy.controller.v1;
 
 
+import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.core.annotation.GroupRequired;
+import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.dto.SpecValueDTO;
@@ -52,6 +54,16 @@ public class SpecValueController {
     public DeletedVO delete(@PathVariable @Positive(message = "{id.positive}") Integer id) {
         specValueService.delete(id);
         return new DeletedVO();
+    }
+
+    @GetMapping("/{id}")
+    @PermissionMeta("获取规格值")
+    public SpecValueDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
+        SpecValueDO specValue = specValueService.getById(id);
+        if (specValue == null) {
+            throw new NotFoundException(60002);
+        }
+        return specValue;
     }
 
 }

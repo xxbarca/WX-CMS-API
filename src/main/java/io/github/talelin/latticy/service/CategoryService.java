@@ -68,4 +68,18 @@ public class CategoryService extends ServiceImpl<CategoryMapper, CategoryDO> {
         return this.getBaseMapper().selectPage(pager, wrapper);
     }
 
+    /**
+     * 分页获取分类数据
+     * @param page
+     * @param count
+     * @param root 1: 父类
+     * @returns {Promise<*>}
+     */
+    public IPage<CategoryDO> getCategoriesByPage(Integer count, Integer page, Integer root) {
+        Page<CategoryDO> pager = new Page<>(page, count);
+        QueryWrapper<CategoryDO> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(CategoryDO::getIsRoot, root);
+        return this.getBaseMapper().selectPage(pager, wrapper);
+    }
+
 }

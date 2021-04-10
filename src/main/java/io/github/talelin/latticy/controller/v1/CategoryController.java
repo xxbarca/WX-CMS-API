@@ -70,7 +70,13 @@ public class CategoryController {
     }
 
 
-    // TODO
+    /**
+     * 分页获取分类数据
+     * @param page
+     * @param count
+     * @param root 1: 父类
+     * @returns {Promise<*>}
+     */
     @GetMapping("/page")
     @LoginRequired
     public PageResponseVO<CategoryDO> page(
@@ -78,11 +84,20 @@ public class CategoryController {
             @Min(value = 1, message = "{page.count.min}")
             @Max(value = 30, message = "{page.count.max}") Integer count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Integer page
+            @Min(value = 0, message = "{page.number.min}") Integer page,
+            @Min(value = 0) @Max(value = 1) Integer root
     ) {
-        return null;
+        IPage<CategoryDO> paging = categoryService.getCategoriesByPage(count, page, root);
+        return PageUtil.build(paging);
     }
 
+    /**
+     * 分页获取子分类数据
+     * @param page
+     * @param count
+     * @param id 父分类id
+     * @returns {Promise<*>}
+     */
     @GetMapping("/sub-page")
     @LoginRequired
     public PageResponseVO<CategoryDO> subPage(

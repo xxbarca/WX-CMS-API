@@ -1,15 +1,16 @@
 package io.github.talelin.latticy.controller.v1;
 
+import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
+import io.github.talelin.latticy.dto.GridCategoryDTO;
 import io.github.talelin.latticy.model.GridCategoryDO;
 import io.github.talelin.latticy.service.GridCategoryService;
+import io.github.talelin.latticy.vo.CreatedVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +22,14 @@ public class GridCategoryController {
 
     @Autowired
     private GridCategoryService gridCategoryService;
+
+    @PostMapping("")
+    @PermissionMeta(value = "创建六宫格")
+    @GroupRequired
+    public CreatedVO create(@Validated @RequestBody GridCategoryDTO dto) {
+        gridCategoryService.createGridCategory(dto);
+        return new CreatedVO();
+    }
 
     @GetMapping("/list")
     @LoginRequired

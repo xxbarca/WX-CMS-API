@@ -41,4 +41,13 @@ public class GridCategoryServiceImpl extends ServiceImpl<GridCategoryMapper, Gri
         gridCategory.setRootCategoryId(category.getParentId().intValue());
         this.save(gridCategory);
     }
+
+    @Override
+    public void deleteGridCategory(Integer id) {
+        GridCategoryDO gridCategory = this.getById(id);
+        if (gridCategory == null) {
+            throw new NotFoundException(50000);
+        }
+        this.getBaseMapper().deleteById(id);
+    }
 }

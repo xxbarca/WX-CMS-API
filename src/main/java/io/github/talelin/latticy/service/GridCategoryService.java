@@ -6,4 +6,5 @@ import io.github.talelin.latticy.model.GridCategoryDO;
 
 public interface GridCategoryService extends IService<GridCategoryDO> {
     void createGridCategory(GridCategoryDTO dto);
+    void deleteGridCategory(Integer id);
 }

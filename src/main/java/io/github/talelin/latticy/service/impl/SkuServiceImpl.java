@@ -137,7 +137,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, SkuDO> implements Sku
 
     private String generateSkuCode(List<SkuSelector> selectors, Integer spuId) {
         // 调整：sku的code 调整成$分隔spu和sku，#分隔sku片段
-        selectors.sort((o1, o2) -> (int) (o1.getKeyId() - o2.getKeyId()));
+        selectors.sort((o1, o2) -> o1.getKeyId() - o2.getKeyId());
         StringBuilder builder = new StringBuilder();
         builder.append(spuId);
         builder.append("$");

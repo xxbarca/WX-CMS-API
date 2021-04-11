@@ -22,7 +22,7 @@ public class CategoryDTO {
     private Integer isRoot;
 
     @Positive
-    private Integer parentId;
+    private Long parentId;
 
     @Length(min = 1, max = 255)
     private String img;

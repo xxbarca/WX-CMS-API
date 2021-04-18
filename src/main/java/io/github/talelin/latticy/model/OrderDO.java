@@ -39,8 +39,10 @@ public class OrderDO {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date expiredTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date placedTime;
 
     private String snapImg;

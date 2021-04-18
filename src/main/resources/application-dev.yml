@@ -8,10 +8,13 @@ server:
 spring:
   # 数据源配置，请修改为你项目的实际配置
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+   # driver-class-name: com.mysql.cj.jdbc.Driver
+    # password: Ly911217/
+    # url: jdbc:mysql://8.140.141.238:3306/missyou?useSSL=false&serverTimezone=UTC&characterEncoding=UTF8
     password:
-    url: jdbc:mysql://localhost:3306/missyou?useSSL=false&serverTimezone=UTC&characterEncoding=UTF8
+    url: jdbc:mysql://127.0.0.1:3306/missyou?useSSL=false&serverTimezone=UTC&characterEncoding=UTF8
     username: root
+    driver-class-name: com.mysql.jdbc.Driver
 
 
 # 开启权限拦截

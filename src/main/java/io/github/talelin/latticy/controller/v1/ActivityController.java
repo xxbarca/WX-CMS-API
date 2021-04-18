@@ -22,6 +22,8 @@ import io.github.talelin.latticy.vo.UpdatedVO;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
 * @author generator@TaleLin
@@ -74,9 +76,9 @@ public class ActivityController {
     public PageResponseVO<ActivityDO> page(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Integer count,
+            @Max(value = 30, message = "{page.count.max}") Long count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Integer page
+            @Min(value = 0, message = "{page.number.min}") Long page
     ) {
         Page<ActivityDO> pager = new Page<>(page, count);
         IPage<ActivityDO> paging = activityService.getBaseMapper().selectPage(pager, null);

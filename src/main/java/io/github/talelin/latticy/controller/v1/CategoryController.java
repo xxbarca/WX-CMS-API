@@ -78,7 +78,7 @@ public class CategoryController {
      * @returns {Promise<*>}
      */
     @GetMapping("/page")
-    @LoginRequired
+//    @LoginRequired
     public PageResponseVO<CategoryDO> page(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{page.count.min}")
@@ -99,7 +99,7 @@ public class CategoryController {
      * @returns {Promise<*>}
      */
     @GetMapping("/sub-page")
-    @LoginRequired
+//    @LoginRequired
     public PageResponseVO<CategoryDO> subPage(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{page.count.min}")
@@ -113,7 +113,7 @@ public class CategoryController {
     }
 
     @GetMapping("/list")
-    @LoginRequired
+//    @LoginRequired
     public List<CategoryDO> getList() {
         val notRoot = CategoryRootOrNotEnum.NOT_ROOT;
         return this.categoryService.lambdaQuery().eq(CategoryDO::getIsRoot, notRoot).list();

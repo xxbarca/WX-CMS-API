@@ -33,17 +33,16 @@ public class LoggerImpl implements LoggerResolver {
 
     @Override
     public void handle(PermissionMeta meta, Logger logger, HttpServletRequest request, HttpServletResponse response) {
-        // parse template and extract properties from request,response and modelAndView
-        String template = logger.template();
-        UserDO user = LocalUser.getLocalUser();
-        template = this.parseTemplate(template, user, request, response);
-        String permission = meta.permission();
-        Long userId = user.getId();
-        String username = user.getUsername();
-        String method = request.getMethod();
-        String path = request.getServletPath();
-        Integer status = response.getStatus();
-        logService.createLog(template, permission, userId, username, method, path, status);
+//        String template = logger.template();
+//        UserDO user = LocalUser.getLocalUser();
+//        template = this.parseTemplate(template, user, request, response);
+//        String permission = meta.permission();
+//        Long userId = user.getId();
+//        String username = user.getUsername();
+//        String method = request.getMethod();
+//        String path = request.getServletPath();
+//        Integer status = response.getStatus();
+//        logService.createLog(template, permission, userId, username, method, path, status);
     }
 
     private String parseTemplate(String template, UserDO user, HttpServletRequest request, HttpServletResponse response) {

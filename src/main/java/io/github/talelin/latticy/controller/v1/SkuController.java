@@ -79,7 +79,7 @@ public class SkuController {
      * 获取sku列表
      * */
     @GetMapping("/page")
-    @LoginRequired
+//    @LoginRequired
     public PageResponseVO<SkuDO> page(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{page.count.min}")

@@ -38,7 +38,7 @@ public class ThemeController {
      * 获取Theme列表
      * */
     @GetMapping("/page")
-    @LoginRequired
+//    @LoginRequired
     public PageResponseVO<ThemeDO> page(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{page.count.min}")
@@ -55,7 +55,7 @@ public class ThemeController {
      * 获取theme详情
      * */
     @GetMapping("/{id}")
-    @LoginRequired
+//    @LoginRequired
     public ThemeDO get(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
         ThemeDO theme = themeService.getBaseMapper().selectById(id);
         if (theme == null) {
@@ -105,7 +105,7 @@ public class ThemeController {
      * 选择theme对应的spu
      * */
     @GetMapping("/spus")
-    @LoginRequired
+//    @LoginRequired
     public List<SimplifySpuDO> getSpus(@RequestParam(name = "id") @Positive(message = "{id}") Integer id) {
         return themeService.getSpus(id);
     }
@@ -119,7 +119,7 @@ public class ThemeController {
     }
 
     @GetMapping("/spu/list")
-    @LoginRequired
+//    @LoginRequired
     public List<SpuDO> getSpuList(@RequestParam(name = "id") @Positive(message = "{id}") Integer id) {
         return themeService.getSimplifySpus(id);
     }

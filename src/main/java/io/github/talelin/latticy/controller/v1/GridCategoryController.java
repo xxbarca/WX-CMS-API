@@ -42,7 +42,7 @@ public class GridCategoryController {
     }
 
     @GetMapping("/list")
-    @LoginRequired
+//    @LoginRequired
     public List<GridCategoryDO> getList() {
         return gridCategoryService.list();
     }

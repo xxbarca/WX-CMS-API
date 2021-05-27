@@ -51,7 +51,7 @@ public class BannerController {
      * @param id: banner的id
      * */
     @GetMapping("/{id}")
-    @LoginRequired
+//    @LoginRequired
     @PermissionMeta(value = "查询Banner")
     @Logger(template = "{user.username}查询了Banner数据")
     public BannerWithItemsBO getWithItems(@PathVariable @Positive Long id) {
@@ -64,7 +64,7 @@ public class BannerController {
      * @param count:
      * */
     @GetMapping("/page")
-    @LoginRequired
+//    @LoginRequired
     public PageResponseVO<BannerDO> getBanners(@RequestParam(required = false, defaultValue = "0") @Min(value = 0) Integer page,
                                                @RequestParam(required = false, defaultValue = "10") @Min(value = 1) @Max(value = 30) Integer count) {
         Page<BannerDO> pager = new Page<>(page, count);

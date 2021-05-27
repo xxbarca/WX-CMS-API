@@ -14,37 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@Transactional
-@Rollback
-@ActiveProfiles("test")
+
 public class FileMapperTest {
 
-    @Autowired
-    private FileMapper fileMapper;
 
-    private String md5 = "iiiiilllllll";
-    private String name = "千里之外";
-
-    @Before
-    public void setUp() throws Exception {
-        FileDO fileDO = new FileDO();
-        fileDO.setName(name);
-        fileDO.setPath("千里之外...");
-        fileDO.setSize(1111);
-        fileDO.setExtension(".png");
-        fileDO.setMd5(md5);
-        fileMapper.insert(fileDO);
-    }
-
-    @Test
-    public void testFindOneByMd5() {
-        FileDO one = fileMapper.selectByMd5(md5);
-        assertEquals(one.getName(), name);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 }
